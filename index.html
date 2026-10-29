@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>BookStore - Online Book Shop</title>
+    <title>BookStore Blog - Stories & Reading Tips</title>
 
     <style>
         * {
@@ -16,13 +16,14 @@
         body {
             font-family: Arial, sans-serif;
             background: #f5f6fa;
-            color: #222;
+            color: #243447;
+            line-height: 1.6;
         }
 
         header {
             background: #243b55;
             color: white;
-            padding: 20px 7%;
+            padding: 18px 7%;
             display: flex;
             justify-content: space-between;
             align-items: center;
@@ -31,33 +32,41 @@
         }
 
         header h1 {
-            font-size: 28px;
+            font-size: 26px;
+        }
+
+        nav {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
         }
 
         nav a {
             color: white;
             text-decoration: none;
-            margin-left: 20px;
+        }
+
+        nav a:hover {
+            color: #ffd166;
         }
 
         .hero {
-            background: linear-gradient(120deg, #243b55, #517fa4);
-            color: white;
             text-align: center;
+            color: white;
             padding: 65px 20px;
+            background: linear-gradient(120deg, #243b55, #517fa4);
         }
 
         .hero h2 {
-            font-size: 38px;
-            margin-bottom: 15px;
+            font-size: 40px;
+            margin-bottom: 12px;
         }
 
         .hero p {
-            font-size: 17px;
-            margin-bottom: 25px;
+            margin-bottom: 24px;
         }
 
-        .hero input {
+        .search-box {
             width: min(90%, 500px);
             padding: 14px;
             border: none;
@@ -68,16 +77,63 @@
         .container {
             width: 90%;
             max-width: 1200px;
-            margin: 35px auto;
+            margin: 40px auto;
         }
 
         .section-title {
             text-align: center;
-            margin-bottom: 25px;
             font-size: 30px;
+            margin-bottom: 25px;
         }
 
-        .filters {
+        .featured {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            background: white;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 4px 15px #00000010;
+            margin-bottom: 45px;
+        }
+
+        .featured img {
+            width: 100%;
+            height: 100%;
+            min-height: 300px;
+            object-fit: cover;
+        }
+
+        .featured-content {
+            padding: 35px;
+            align-self: center;
+        }
+
+        .tag {
+            display: inline-block;
+            background: #e5edf5;
+            color: #243b55;
+            border-radius: 20px;
+            padding: 5px 12px;
+            font-size: 13px;
+            margin-bottom: 12px;
+        }
+
+        .featured h3 {
+            font-size: 28px;
+            margin-bottom: 12px;
+        }
+
+        .meta {
+            color: #777;
+            font-size: 14px;
+            margin: 10px 0;
+        }
+
+        .featured p {
+            margin-bottom: 18px;
+        }
+
+        .categories {
             display: flex;
             justify-content: center;
             gap: 10px;
@@ -85,153 +141,173 @@
             margin-bottom: 30px;
         }
 
-        .filters button {
+        .categories button {
             border: none;
-            padding: 10px 18px;
             background: #e0e6ed;
+            padding: 10px 18px;
             border-radius: 5px;
             cursor: pointer;
         }
 
-        .filters button.active,
-        .filters button:hover {
+        .categories button.active,
+        .categories button:hover {
             background: #243b55;
             color: white;
         }
 
-        .book-grid {
+        .blog-grid {
             display: grid;
             grid-template-columns: repeat(
-                auto-fit, minmax(210px, 1fr)
+                auto-fit, minmax(260px, 1fr)
             );
             gap: 25px;
         }
 
-        .book-card {
+        .blog-card {
             background: white;
-            padding: 18px;
             border-radius: 10px;
-            text-align: center;
-            box-shadow: 0 3px 12px #00000012;
+            overflow: hidden;
+            box-shadow: 0 4px 14px #00000010;
             transition: transform 0.2s;
         }
 
-        .book-card:hover {
+        .blog-card:hover {
             transform: translateY(-5px);
         }
 
-        .book-card img {
+        .blog-card img {
             width: 100%;
-            height: 240px;
-            object-fit: contain;
-            margin-bottom: 15px;
+            height: 210px;
+            object-fit: cover;
         }
 
-        .book-card h3 {
-            font-size: 18px;
-            margin-bottom: 8px;
+        .blog-content {
+            padding: 22px;
         }
 
-        .book-card .author {
-            color: #777;
+        .blog-content h3 {
+            font-size: 21px;
+            line-height: 1.35;
             margin-bottom: 10px;
         }
 
-        .price {
-            font-size: 20px;
-            color: #218838;
-            font-weight: bold;
+        .blog-content p {
+            color: #555;
             margin-bottom: 15px;
         }
 
-        .book-card button {
+        .read-more {
+            display: inline-block;
             background: #243b55;
             color: white;
-            border: none;
-            padding: 11px 15px;
+            padding: 10px 16px;
             border-radius: 5px;
+            border: none;
+            text-decoration: none;
             cursor: pointer;
-            width: 100%;
+            font-size: 14px;
         }
 
-        .book-card button:hover {
+        .read-more:hover {
             background: #517fa4;
         }
 
-        .cart {
+        .article-view {
+            display: none;
             background: white;
-            padding: 25px;
-            margin-top: 40px;
+            padding: 35px;
+            margin-top: 35px;
+            border-radius: 10px;
+            box-shadow: 0 4px 14px #00000010;
+        }
+
+        .article-view img {
+            width: 100%;
+            max-height: 420px;
+            object-fit: cover;
+            border-radius: 8px;
+            margin: 20px 0;
+        }
+
+        .article-view h2 {
+            margin-bottom: 10px;
+        }
+
+        .article-view p {
+            margin-bottom: 18px;
+        }
+
+        .newsletter {
+            background: #e5edf5;
+            text-align: center;
+            padding: 45px 20px;
+            margin-top: 50px;
             border-radius: 10px;
         }
 
-        .cart h2 {
-            margin-bottom: 15px;
+        .newsletter h2 {
+            margin-bottom: 10px;
         }
 
-        .cart-item {
-            display: flex;
-            justify-content: space-between;
-            gap: 15px;
-            padding: 12px 0;
-            border-bottom: 1px solid #ddd;
-        }
-
-        .remove-btn {
-            background: #c0392b;
-            color: white;
-            border: none;
-            padding: 5px 10px;
-            border-radius: 4px;
-            cursor: pointer;
-        }
-
-        .cart-total {
-            font-size: 21px;
-            font-weight: bold;
-            margin-top: 20px;
-        }
-
-        .checkout {
-            background: #218838;
-            color: white;
-            border: none;
-            padding: 12px 22px;
+        .newsletter input {
+            padding: 12px;
+            width: min(90%, 320px);
+            border: 1px solid #ccc;
             border-radius: 5px;
-            margin-top: 15px;
-            cursor: pointer;
+            margin: 15px 5px;
         }
 
-        .empty {
-            text-align: center;
-            padding: 20px;
-            color: #777;
+        .newsletter button {
+            padding: 12px 20px;
+            background: #243b55;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
         }
 
         footer {
-            margin-top: 50px;
-            padding: 25px;
-            text-align: center;
             background: #243b55;
             color: white;
+            text-align: center;
+            padding: 30px 15px;
+            margin-top: 50px;
         }
 
-        @media (max-width: 600px) {
+        footer a {
+            color: white;
+            text-decoration: none;
+            margin: 0 8px;
+        }
+
+        .no-results {
+            grid-column: 1 / -1;
+            text-align: center;
+            padding: 30px;
+        }
+
+        @media (max-width: 700px) {
             header {
                 justify-content: center;
                 text-align: center;
             }
 
-            nav a {
-                margin: 0 7px;
-            }
-
             .hero h2 {
-                font-size: 29px;
+                font-size: 30px;
             }
 
-            .cart-item {
-                flex-wrap: wrap;
+            .featured {
+                grid-template-columns: 1fr;
+            }
+
+            .featured img {
+                min-height: 220px;
+                max-height: 280px;
+            }
+
+            .featured-content,
+            .article-view {
+                padding: 22px;
             }
         }
     </style>
@@ -239,259 +315,307 @@
 
 <body>
 
-    <header>
-        <h1>📚 BookStore</h1>
-        <nav>
-            <a href="#home">Home</a>
-            <a href="#books">Books</a>
-            <a href="#cart">Cart (<span id="cart-count">0</span>)</a>
-        </nav>
-    </header>
+<header>
+    <h1>📚 BookStore</h1>
+    <nav>
+        <a href="index.html">Home</a>
+        <a href="index.html#books">Books</a>
+        <a href="blog.html">Blog</a>
+        <a href="#newsletter">Subscribe</a>
+    </nav>
+</header>
 
-    <section class="hero" id="home">
-        <h2>Discover Your Next Favorite Book</h2>
-        <p>Explore stories, knowledge, and inspiration.</p>
-        <input
-            type="search"
-            id="search"
-            placeholder="Search books or authors..."
-            aria-label="Search books or authors"
+<section class="hero">
+    <h2>Welcome to Our Book Blog</h2>
+    <p>Discover books, reading tips, authors, and inspiring stories.</p>
+    <input
+        type="search"
+        class="search-box"
+        id="search"
+        placeholder="Search articles..."
+        aria-label="Search blog articles"
+    >
+</section>
+
+<main class="container">
+
+    <h2 class="section-title">Featured Article</h2>
+
+    <section class="featured">
+        <img
+            src="https://placehold.co/800x500/243b55/ffffff?text=The+Joy+of+Reading"
+            alt="Books arranged for reading"
         >
+
+        <div class="featured-content">
+            <span class="tag">Reading Tips</span>
+            <h3>How Reading Books Can Change Your Life</h3>
+            <div class="meta">October 20, 2026 · 5 min read</div>
+            <p>
+                Reading opens the door to new ideas, improves your
+                imagination, and helps you understand the world.
+                Discover simple ways to build a daily reading habit.
+            </p>
+            <button class="read-more" onclick="openArticle(1)">
+                Read Full Article
+            </button>
+        </div>
     </section>
 
-    <main class="container" id="books">
-        <h2 class="section-title">Our Book Collection</h2>
+    <h2 class="section-title">Latest Articles</h2>
 
-        <div class="filters">
-            <button class="active" data-category="All">All Books</button>
-            <button data-category="Fiction">Fiction</button>
-            <button data-category="Education">Education</button>
-            <button data-category="Technology">Technology</button>
-            <button data-category="Business">Business</button>
-        </div>
+    <div class="categories">
+        <button class="active" data-category="All">All Posts</button>
+        <button data-category="Reading Tips">Reading Tips</button>
+        <button data-category="Book Reviews">Book Reviews</button>
+        <button data-category="Authors">Authors</button>
+        <button data-category="Education">Education</button>
+    </div>
 
-        <div class="book-grid" id="book-grid"></div>
+    <section class="blog-grid" id="blog-grid"></section>
 
-        <section class="cart" id="cart">
-            <h2>🛒 Your Shopping Cart</h2>
-            <div id="cart-items">
-                <p class="empty">Your cart is empty.</p>
-            </div>
-            <p class="cart-total">
-                Total: $<span id="cart-total">0.00</span>
-            </p>
-            <button class="checkout" id="checkout">
-                Checkout
-            </button>
-        </section>
-    </main>
+    <section class="article-view" id="article-view">
+        <button class="read-more" onclick="closeArticle()">
+            ← Back to Articles
+        </button>
+        <div id="article-content"></div>
+    </section>
 
-    <footer>
-        <p>&copy; 2026 BookStore. All rights reserved.</p>
-        <p style="margin-top: 8px;">A good book opens a new world.</p>
-    </footer>
+    <section class="newsletter" id="newsletter">
+        <h2>Join Our Reading Community</h2>
+        <p>Get book recommendations and new articles in your inbox.</p>
 
-    <script>
-        const books = [
-            {
-                id: 1,
-                title: "The Great Adventure",
-                author: "Alex Morgan",
-                price: 14.99,
-                category: "Fiction",
-                image: "https://placehold.co/300x400/243b55/ffffff?text=Great+Adventure"
-            },
-            {
-                id: 2,
-                title: "Learning Mathematics",
-                author: "John Smith",
-                price: 19.99,
-                category: "Education",
-                image: "https://placehold.co/300x400/287271/ffffff?text=Mathematics"
-            },
-            {
-                id: 3,
-                title: "Web Development",
-                author: "Sarah Wilson",
-                price: 24.99,
-                category: "Technology",
-                image: "https://placehold.co/300x400/5b4b8a/ffffff?text=Web+Development"
-            },
-            {
-                id: 4,
-                title: "The Power of Habits",
-                author: "David Lee",
-                price: 16.50,
-                category: "Business",
-                image: "https://placehold.co/300x400/9c6644/ffffff?text=Power+of+Habits"
-            },
-            {
-                id: 5,
-                title: "Mystery of the Night",
-                author: "Emily Rose",
-                price: 12.99,
-                category: "Fiction",
-                image: "https://placehold.co/300x400/343a40/ffffff?text=Mystery+Night"
-            },
-            {
-                id: 6,
-                title: "Science for Everyone",
-                author: "Michael Brown",
-                price: 18.00,
-                category: "Education",
-                image: "https://placehold.co/300x400/468faf/ffffff?text=Science"
-            },
-            {
-                id: 7,
-                title: "JavaScript Basics",
-                author: "Chris Taylor",
-                price: 22.50,
-                category: "Technology",
-                image: "https://placehold.co/300x400/e09f3e/ffffff?text=JavaScript"
-            },
-            {
-                id: 8,
-                title: "Smart Business",
-                author: "Olivia Clark",
-                price: 20.00,
-                category: "Business",
-                image: "https://placehold.co/300x400/386641/ffffff?text=Smart+Business"
-            }
-        ];
+        <form id="newsletter-form">
+            <input
+                type="email"
+                id="email"
+                placeholder="Enter your email address"
+                required
+            >
+            <button type="submit">Subscribe</button>
+        </form>
 
-        let cart = [];
-        let selectedCategory = "All";
+        <p id="newsletter-message" aria-live="polite"></p>
+    </section>
 
-        const grid = document.getElementById("book-grid");
-        const searchInput = document.getElementById("search");
+</main>
 
-        function displayBooks() {
-            const query = searchInput.value.toLowerCase().trim();
+<footer>
+    <h3>📚 BookStore Blog</h3>
+    <p>Read more. Learn more. Discover more.</p>
+    <p style="margin-top: 12px;">
+        <a href="index.html">Home</a>
+        <a href="#newsletter">Newsletter</a>
+    </p>
+    <p style="margin-top: 15px;">
+        &copy; 2026 BookStore. All rights reserved.
+    </p>
+</footer>
 
-            const filteredBooks = books.filter(book => {
-                const matchesCategory =
-                    selectedCategory === "All" ||
-                    book.category === selectedCategory;
+<script>
+    const articles = [
+        {
+            id: 1,
+            title: "How Reading Books Can Change Your Life",
+            category: "Reading Tips",
+            date: "October 20, 2026",
+            author: "BookStore Team",
+            readTime: "5 min read",
+            image: "https://placehold.co/800x500/243b55/ffffff?text=Joy+of+Reading",
+            excerpt: "Discover how reading can improve your imagination, knowledge, and everyday life.",
+            paragraphs: [
+                "Books give us the opportunity to explore new ideas, visit unfamiliar places, and learn from other people's experiences. Even a few pages each day can introduce something valuable into your life.",
+                "Reading regularly can help you develop vocabulary, improve concentration, and make time for quiet reflection. Choose subjects that interest you so reading feels enjoyable rather than like a task.",
+                "Start with ten minutes a day. Keep a book near your favorite chair, carry one while travelling, and set a small weekly reading goal. The best reading habit is one you can maintain."
+            ]
+        },
+        {
+            id: 2,
+            title: "Five Books Every Reader Should Explore",
+            category: "Book Reviews",
+            date: "October 18, 2026",
+            author: "Emma Wilson",
+            readTime: "4 min read",
+            image: "https://placehold.co/600x400/517fa4/ffffff?text=Book+Recommendations",
+            excerpt: "Explore a selection of classic stories and thought-provoking books.",
+            paragraphs: [
+                "Choosing your next book can be an adventure. Classic literature, modern fiction, biographies, and popular science all offer different ways to explore the world.",
+                "Try Pride and Prejudice by Jane Austen, 1984 by George Orwell, To Kill a Mockingbird by Harper Lee, The Little Prince by Antoine de Saint-Exupéry, and a biography of someone whose work inspires you.",
+                "The perfect reading list is personal. Explore different genres and keep track of the books that leave you thinking long after the final page."
+            ]
+        },
+        {
+            id: 3,
+            title: "The Benefits of Reading Every Day",
+            category: "Reading Tips",
+            date: "October 15, 2026",
+            author: "Daniel James",
+            readTime: "3 min read",
+            image: "https://placehold.co/600x400/287271/ffffff?text=Daily+Reading",
+            excerpt: "Learn how a small daily reading habit can make a meaningful difference.",
+            paragraphs: [
+                "A daily reading routine creates time to focus on one idea at a time. It can also introduce new vocabulary and help you become familiar with different writing styles.",
+                "Choose a regular time, such as after breakfast or before bed. Keep your phone away and select a comfortable place where you can concentrate.",
+                "You do not need to finish a book quickly. A few thoughtful pages every day can be more rewarding than trying to read an entire book in one sitting."
+            ]
+        },
+        {
+            id: 4,
+            title: "How Great Authors Find Inspiration",
+            category: "Authors",
+            date: "October 12, 2026",
+            author: "Sophia Martin",
+            readTime: "6 min read",
+            image: "https://placehold.co/600x400/9c6644/ffffff?text=Author+Inspiration",
+            excerpt: "Explore the everyday observations and experiences that inspire writers.",
+            paragraphs: [
+                "Authors find inspiration in many places: conversations, memories, travel, history, and ordinary moments that others might overlook.",
+                "Keeping a notebook can help writers capture interesting phrases, questions, and observations before they disappear. Reading widely also introduces different approaches to storytelling.",
+                "Inspiration is useful, but consistent practice matters too. Setting aside time to write allows small ideas to develop into complete stories."
+            ]
+        },
+        {
+            id: 5,
+            title: "Why Books Are Powerful Learning Tools",
+            category: "Education",
+            date: "October 10, 2026",
+            author: "Michael Brown",
+            readTime: "4 min read",
+            image: "https://placehold.co/600x400/5b4b8a/ffffff?text=Books+and+Learning",
+            excerpt: "Discover ways to use books to develop knowledge and new skills.",
+            paragraphs: [
+                "Books organize information into a format you can revisit whenever you need it. Unlike a passing conversation, a written explanation can be reviewed at your own pace.",
+                "To learn effectively, write short notes, highlight key concepts where appropriate, and explain what you have learned in your own words.",
+                "Combine reading with practice. Whether you are learning a language, studying science, or exploring technology, applying ideas helps turn information into useful knowledge."
+            ]
+        },
+        {
+            id: 6,
+            title: "How to Choose Your Next Great Book",
+            category: "Book Reviews",
+            date: "October 7, 2026",
+            author: "Olivia Clark",
+            readTime: "3 min read",
+            image: "https://placehold.co/600x400/386641/ffffff?text=Choose+Your+Next+Book",
+            excerpt: "Find your next favorite book with a few simple selection tips.",
+            paragraphs: [
+                "Begin with a topic you already enjoy, then look for books that explore it in a new way. Recommendations from friends and librarians can help you discover authors you might otherwise miss.",
+                "Read the description and a sample before deciding. Reviews can be useful, but your own interests are the most important guide.",
+                "Give a book a fair chance, but remember that you are allowed to choose something else if it does not hold your attention."
+            ]
+        }
+    ];
 
-                const matchesSearch =
-                    book.title.toLowerCase().includes(query) ||
-                    book.author.toLowerCase().includes(query);
+    let selectedCategory = "All";
 
-                return matchesCategory && matchesSearch;
-            });
+    const grid = document.getElementById("blog-grid");
+    const searchInput = document.getElementById("search");
+    const articleView = document.getElementById("article-view");
 
-            if (filteredBooks.length === 0) {
-                grid.innerHTML =
-                    '<p class="empty">No books found.</p>';
-                return;
-            }
+    function displayArticles() {
+        const query = searchInput.value.toLowerCase().trim();
 
-            grid.innerHTML = filteredBooks.map(book => `
-                <article class="book-card">
-                    <img
-                        src="${book.image}"
-                        alt="${book.title} book cover"
-                        loading="lazy"
-                    >
-                    <h3>${book.title}</h3>
-                    <p class="author">By ${book.author}</p>
-                    <p>Category: ${book.category}</p>
-                    <p class="price">$${book.price.toFixed(2)}</p>
-                    <button onclick="addToCart(${book.id})">
-                        Add to Cart
-                    </button>
-                </article>
-            `).join("");
+        const filtered = articles.filter(article => {
+            const matchesCategory =
+                selectedCategory === "All" ||
+                article.category === selectedCategory;
+
+            const searchableText =
+                article.title + " " +
+                article.category + " " +
+                article.author + " " +
+                article.excerpt;
+
+            return matchesCategory &&
+                searchableText.toLowerCase().includes(query);
+        });
+
+        if (filtered.length === 0) {
+            grid.innerHTML =
+                '<p class="no-results">No articles found. Try another search.</p>';
+            return;
         }
 
-        function addToCart(id) {
-            const book = books.find(item => item.id === id);
-            const existing = cart.find(item => item.id === id);
-
-            if (existing) {
-                existing.quantity++;
-            } else {
-                cart.push({ ...book, quantity: 1 });
-            }
-
-            displayCart();
-        }
-
-        function removeFromCart(id) {
-            cart = cart.filter(item => item.id !== id);
-            displayCart();
-        }
-
-        function displayCart() {
-            const cartItems = document.getElementById("cart-items");
-
-            document.getElementById("cart-count").textContent =
-                cart.reduce((sum, item) => sum + item.quantity, 0);
-
-            if (cart.length === 0) {
-                cartItems.innerHTML =
-                    '<p class="empty">Your cart is empty.</p>';
-            } else {
-                cartItems.innerHTML = cart.map(item => `
-                    <div class="cart-item">
-                        <span>
-                            ${item.title} × ${item.quantity}
-                        </span>
-                        <span>
-                            $${(item.price * item.quantity).toFixed(2)}
-                            <button
-                                class="remove-btn"
-                                onclick="removeFromCart(${item.id})"
-                            >
-                                Remove
-                            </button>
-                        </span>
+        grid.innerHTML = filtered.map(article => `
+            <article class="blog-card">
+                <img
+                    src="${article.image}"
+                    alt="${article.title}"
+                    loading="lazy"
+                >
+                <div class="blog-content">
+                    <span class="tag">${article.category}</span>
+                    <h3>${article.title}</h3>
+                    <div class="meta">
+                        ${article.date} · ${article.readTime}
                     </div>
-                `).join("");
-            }
+                    <p>${article.excerpt}</p>
+                    <button
+                        class="read-more"
+                        onclick="openArticle(${article.id})"
+                    >
+                        Read More →
+                    </button>
+                </div>
+            </article>
+        `).join("");
+    }
 
-            const total = cart.reduce(
-                (sum, item) => sum + item.price * item.quantity,
-                0
-            );
+    function openArticle(id) {
+        const article = articles.find(item => item.id === id);
 
-            document.getElementById("cart-total").textContent =
-                total.toFixed(2);
-        }
+        if (!article) return;
 
-        document.querySelectorAll(".filters button").forEach(button => {
-            button.addEventListener("click", () => {
-                selectedCategory = button.dataset.category;
+        document.getElementById("article-content").innerHTML = `
+            <span class="tag">${article.category}</span>
+            <h2>${article.title}</h2>
+            <div class="meta">
+                By ${article.author} · ${article.date} · ${article.readTime}
+            </div>
+            <img src="${article.image}" alt="${article.title}">
+            ${article.paragraphs.map(
+                paragraph => `<p>${paragraph}</p>`
+            ).join("")}
+        `;
 
-                document.querySelectorAll(".filters button")
-                    .forEach(btn => btn.classList.remove("active"));
+        articleView.style.display = "block";
+        articleView.scrollIntoView({ behavior: "smooth" });
+    }
 
-                button.classList.add("active");
-                displayBooks();
-            });
+    function closeArticle() {
+        articleView.style.display = "none";
+        document.getElementById("newsletter").scrollIntoView({
+            behavior: "smooth",
+            block: "nearest"
+        });
+    }
+
+    document.querySelectorAll(".categories button").forEach(button => {
+        button.addEventListener("click", () => {
+            selectedCategory = button.dataset.category;
+
+            document.querySelectorAll(".categories button")
+                .forEach(item => item.classList.remove("active"));
+
+            button.classList.add("active");
+            displayArticles();
+        });
+    });
+
+    searchInput.addEventListener("input", displayArticles);
+
+    document.getElementById("newsletter-form")
+        .addEventListener("submit", event => {
+            event.preventDefault();
+
+            document.getElementById("newsletter-message").textContent =
+                "Thanks for your interest! This demo does not store email addresses. Connect a newsletter service to enable subscriptions.";
+
+            event.target.reset();
         });
 
-        searchInput.addEventListener("input", displayBooks);
-
-        document.getElementById("checkout").addEventListener("click", () => {
-            if (cart.length === 0) {
-                alert("Your cart is empty. Please add a book first.");
-                return;
-            }
-
-            alert(
-                "Demo checkout only. Your total is $" +
-                cart.reduce(
-                    (sum, item) => sum + item.price * item.quantity,
-                    0
-                ).toFixed(2) +
-                ". No payment has been processed."
-            );
-        });
-
-        displayBooks();
-        displayCart();
-    </script>
+    displayArticles();
+</script>
 
 </body>
 </html>
